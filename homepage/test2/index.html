@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="http://unpkg.com/tone"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+    <title>Cubes Music Game</title>
+  </head>
+  <body>
+    <dialog id="introDialog">
+      <p>click ok</p>
+      <button id="dialogCloseButton" autofocus>ok</button>
+    </dialog>
+    <div class="home-icon">
+      <a href="/homepage/index.html"
+        ><img src="assets/home-icon.png" alt="home-icon"
+      /></a>
+    </div>
+    <div class="reset-icon">
+      <button id="resetButton">
+        <img src="assets/reload-icon.png" alt="" />
+      </button>
+    </div>
+    <div id="resultDisplay"></div>
+    <div class="cubesContainer">
+      <button class="cube" data-value="1"></button>
+      <button class="cube" data-value="2"></button>
+      <button class="cube" data-value="3"></button>
+      <button class="cube" data-value="4"></button>
+      <button class="cube" data-value="5"></button>
+      <button class="cube" data-value="6"></button>
+      <button class="cube" data-value="7"></button>
+      <button class="cube" data-value="8"></button>
+      <button class="cube" data-value="9"></button>
+      <button class="cube" data-value="10"></button>
+    </div>
+  </body>
+</html>
