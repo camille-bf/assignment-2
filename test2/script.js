@@ -1,18 +1,16 @@
+// reset button reloads the page
 document.getElementById("resetButton").addEventListener("click", () => {
   location.reload();
 });
+
 // audio files instruments for each cube
 let audioFiles = [
-  "assets/audio-samples/piano.mp3",
-  "assets/audio-samples/accordeon.mp3",
-  "assets/audio-samples/clarinette.mp3",
-  "assets/audio-samples/flute.mp3",
-  "assets/audio-samples/guitare.mp3",
-  "assets/audio-samples/harmonica.mp3",
-  "assets/audio-samples/saxo.mp3",
-  "assets/audio-samples/tambour.mp3",
-  "assets/audio-samples/trompette.mp3",
-  "assets/audio-samples/violon.mp3",
+  "assets/audio-samples/sound1.mp3",
+  "assets/audio-samples/sound2.mp3",
+  "assets/audio-samples/sound3.mp3",
+  "assets/audio-samples/sound4.mp3",
+  "assets/audio-samples/sound5.mp3",
+  "assets/audio-samples/sound6.mp3",
 ];
 
 let introModal = document.getElementById("introDialog");
@@ -23,41 +21,41 @@ document.getElementById("dialogCloseButton").addEventListener("click", () => {
 
 let allCubes = Array.from(document.getElementsByClassName("cube"));
 
-allCubes.forEach((cube) => {
-  cube.style.backgroundColor = getRandomColorVariation();
-});
-
 allCubes.forEach((cube, i) => {
   cube.addEventListener("mousedown", (e) => {
-    cube.style.backgroundColor = getRandomColorVariation();
+    cube.style.backgroundColor = getRandomColor();
     let audio = new Audio(audioFiles[i]);
+    //audio.loop = true;
     audio.play();
   });
 });
 
-function getRandomColorVariation() {
+// random colors to cubes
+function getRandomColor() {
   const colors = [
-    "red",
-    "green",
-    "blue",
-    "yellow",
-    "orange",
-    "purple",
-    "pink",
-    "brown",
-    "gray",
-    "black",
+    "#FF66CC",
+    "#66CCFF",
+    "#CCFF66",
+    "#FFCC66",
+    "#9966FF",
+    "#00FFFF",
+    "#FF00FF",
+    "#FF9900",
+    "#66FFCC",
+    "#FF66FF",
   ];
-
-  const randomIndex = Math.floor(Math.random() * colors.length);
-  return colors[randomIndex];
+  return colors[Math.floor(Math.random() * colors.length)];
 }
+allCubes.forEach((cube) => {
+  cube.style.backgroundColor = getRandomColor();
+});
 
 let cubes = document.querySelectorAll(".cube");
 
 // bouncing animation
-let container = document.querySelector(".cubesContainer");
-let states = [...cubes].map((c) => {
+let container = document.querySelector(".cubesCont");
+
+let blocks = [...cubes].map((c) => {
   return {
     el: c,
     x: c.offsetLeft,
@@ -68,31 +66,27 @@ let states = [...cubes].map((c) => {
 });
 
 function animate() {
-  let rect = container.getBoundingClientRect();
-  states.forEach((s) => {
-    s.x += s.dx;
-    s.y += s.dy;
-
-    if (s.x <= 0 || s.x + s.el.offsetWidth >= rect.width) s.dx *= -1;
-    if (s.y <= 0 || s.y + s.el.offsetHeight >= rect.height) s.dy *= -1;
-
-    s.el.style.left = s.x + "px";
-    s.el.style.top = s.y + "px";
+  let contSize = container.getBoundingClientRect();
+  blocks.forEach((cube) => {
+    cube.x += cube.dx;
+    cube.y += cube.dy;
+    if (cube.x <= 0 || cube.x >= contSize.width) cube.dx *= -1;
+    if (cube.y <= 0 || cube.y >= contSize.height) cube.dy *= -1;
+    cube.el.style.left = cube.x + "px";
+    cube.el.style.top = cube.y + "px";
   });
   requestAnimationFrame(animate);
 }
 animate();
 
 // Drag and drop
+
 let selected = null,
   offX = 0,
-  offY = 0,
-  lastX = 0,
-  lastY = 0;
-
+  offY = 0;
 document.addEventListener("mousedown", (e) => {
   if (e.target.classList.contains("cube")) {
-    selected = states.find((s) => s.el === e.target);
+    selected = blocks.find((s) => s.el === e.target);
     offX = e.clientX - selected.x;
     offY = e.clientY - selected.y;
     lastX = e.clientX;
@@ -101,7 +95,6 @@ document.addEventListener("mousedown", (e) => {
     selected.dy = 0;
   }
 });
-
 document.addEventListener("mousemove", (e) => {
   if (selected) {
     selected.x = e.clientX - offX;
@@ -112,7 +105,6 @@ document.addEventListener("mousemove", (e) => {
     lastY = e.clientY;
   }
 });
-
 document.addEventListener("mouseup", () => {
   if (selected) {
     selected = null;

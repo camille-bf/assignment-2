@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap");
 body {
-  background-image: url(homepage-bggg.jpg);
+  background-image: url(homepagebg.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -21,19 +21,32 @@ body {
   margin-top: 400px;
 }
 
-.menu button {
-  padding: 10px 20px;
-  font-size: 25px;
+.menu-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   width: 400px;
   height: 90px;
-  cursor: pointer;
-  background: linear-gradient(to bottom, #ffffff, #ffc0cb);
-  box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.3);
-  color: #000;
+  font-size: 25px;
   font-family: "Orbitron", sans-serif;
+  cursor: pointer;
+  background: linear-gradient(to bottom, #ffffff, #ff3fb5);
+  color: #000000;
+  border-radius: 25px;
+  border: 1px solid #000000;
+  box-shadow: 4px 4px 30px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
 }
 
-.button:hover {
+.menu-button:hover {
   box-shadow: 10px 10px #000;
-  border: 1px solid #000 !important;
+  border: 1px solid #000;
+  transform: translateY(-2px); /* lifts button slightly */
+  background: linear-gradient(to bottom, #ffffff, #ff66c8);
+}
+
+.menu-button:active {
+  transform: translateY(2px);
+  box-shadow: 10px 10px #000;
+  border: 1px solid #000;
 }
